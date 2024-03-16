@@ -81,6 +81,21 @@
                 Console.WriteLine("\nKhong co sinh vien nao ten Khoa!");
             }
 
+            // Danh sach sinh vien co thong tin khoa
+            var sinhVienVaKhoa = from sv in danhSachSinhVien
+                                 join k in danhSachKhoa on sv.khoaID equals k.khoaID
+                                 select new
+                                 {
+                                     iD = sv.sinhVienID,
+                                     ten = sv.tenSinhVien,
+                                     khoa = k.tenKhoa
+                                 };
+            Console.WriteLine("\nDanh sach sinh vien co thong tin khoa:");
+            foreach (var item in sinhVienVaKhoa)
+            {
+                Console.WriteLine($"  ID: {item.iD}, Sinh vien: {item.ten}, Khoa: {item.khoa}");
+            }
+
             // Sinh vien gioi nhat
             var sinhVienGioiNhat = danhSachSinhVien.OrderByDescending(sv => sv.diemTB).FirstOrDefault();
             Console.WriteLine($"\nSinh vien gioi nhat: {sinhVienGioiNhat.tenSinhVien}");
